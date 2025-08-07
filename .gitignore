@@ -1,0 +1,17 @@
+gin-bin
+config.yaml
+note
+tmp/*
+.idea
+# assets/data/document/*
+# assets/data/image/*
+
+# Exclude system-specific files
+.DS_Store
+
+# Exclude environment configuration file
+.env
+.env.production
+
+# Exclude live reload configuration file
+.air.toml
