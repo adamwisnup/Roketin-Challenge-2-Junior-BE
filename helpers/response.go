@@ -13,6 +13,13 @@ type Response struct {
 	Data    interface{} `json:"data,omitempty"`
 }
 
+type PaginatedResponse struct {
+	Status     bool           `json:"status"`
+	Message    string         `json:"message"`
+	Data       interface{}    `json:"data"`
+	Pagination PaginationInfo `json:"pagination"`
+}
+
 func SuccessResponse(message string, data interface{}) Response {
 	return Response{
 		Status:  true,
@@ -21,11 +28,12 @@ func SuccessResponse(message string, data interface{}) Response {
 	}
 }
 
-func SuccessPaginationResponse(message string, data interface{}, pagination PaginationInfo) Response {
-	return Response{
-		Status:  true,
-		Message: message,
-		Data:    data,
+func SuccessPaginationResponse(message string, data interface{}, pagination PaginationInfo) PaginatedResponse {
+	return PaginatedResponse{
+		Status:     true,
+		Message:    message,
+		Data:       data,
+		Pagination: pagination,
 	}
 }
 
