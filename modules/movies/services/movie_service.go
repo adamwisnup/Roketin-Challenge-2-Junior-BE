@@ -30,18 +30,14 @@ func (s *MovieService) CreateMovie(movie models.Movie) (models.Movie, error) {
 	return s.rc.CreateMovie(movie)
 }
 
-func (s *MovieService) UpdateMovie(id int, movie models.Movie) (models.Movie, error) {
-	if movie.Title == "" || movie.Description == "" || movie.Duration <= 0 {
-		return models.Movie{}, errors.New("invalid movie data")
+func (s *MovieService) UpdateMovie(id int, data map[string]interface{}) (models.Movie, error) {
+	if len(data) == 0 {
+		return models.Movie{}, errors.New("no data to update")
 	}
 
-	updatedMovie, err := s.rc.UpdateMovie(id, movie)
+	updatedMovie, err := s.rc.UpdateMovie(id, data)
 	if err != nil {
 		return models.Movie{}, err
-	}
-
-	if updatedMovie.ID == 0 {
-		return models.Movie{}, errors.New("movie not found")
 	}
 
 	return updatedMovie, nil

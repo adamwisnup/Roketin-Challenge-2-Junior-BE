@@ -22,8 +22,8 @@ func (r *MovieCommandRepository) CreateMovie(movie models.Movie) (models.Movie, 
 	return movie, nil
 }
 
-func (r *MovieCommandRepository) UpdateMovie(id int, movie models.Movie) (models.Movie, error) {
-	if err := r.db.Model(&models.Movie{}).Where("id = ?", id).Updates(movie).Error; err != nil {
+func (r *MovieCommandRepository) UpdateMovie(id int, data map[string]interface{}) (models.Movie, error) {
+	if err := r.db.Model(&models.Movie{}).Where("id = ?", id).Updates(data).Error; err != nil {
 		return models.Movie{}, err
 	}
 

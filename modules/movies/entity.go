@@ -27,7 +27,7 @@ type MovieControllerInterface interface {
 type MovieServiceInterface interface {
 	GetMovies(p helpers.Pagination) ([]models.Movie, int64, error)
 	CreateMovie(movie models.Movie) (models.Movie, error)
-	UpdateMovie(id int, movie models.Movie) (models.Movie, error)
+	UpdateMovie(id int, data map[string]interface{}) (models.Movie, error)
 	SearchMovies(query string, p helpers.Pagination) ([]models.Movie, int64, error)
 	UploadMovies(movies []models.Movie) error
 }
@@ -39,6 +39,6 @@ type MovieQueryInterface interface {
 
 type MovieCommandInterface interface {
 	CreateMovie(movie models.Movie) (models.Movie, error)
-	UpdateMovie(id int, movie models.Movie) (models.Movie, error)
+	UpdateMovie(id int, data map[string]interface{}) (models.Movie, error)
 	BulkInsertMovie(movies []models.Movie) error
 }

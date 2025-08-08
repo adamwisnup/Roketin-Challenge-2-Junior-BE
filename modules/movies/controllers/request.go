@@ -9,11 +9,11 @@ type CreateMovieRequest struct {
 }
 
 type UpdateMovieRequest struct {
-	Title       string `json:"title" validate:"nullable"`
-	Description string `json:"description" validate:"nullable"`
-	Duration    int    `json:"duration" validate:"nullable,min=1"`
-	Artists     string `json:"artists" validate:"nullable"`
-	Genres      string `json:"genres" validate:"nullable"`
+	Title       *string `json:"title"`
+	Description *string `json:"description"`
+	Duration    *int    `json:"duration"`
+	Artists     *string `json:"artists"`
+	Genres      *string `json:"genres"`
 }
 
 type UploadMoviesRequest struct {

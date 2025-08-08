@@ -94,19 +94,29 @@ func (mc *MovieController) UpdateMovie(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, helpers.ErrorResponse("Invalid request body"))
 	}
 
-	if req.Title == "" && req.Description == "" && req.Duration <= 0 && req.Artists == "" && req.Genres == "" {
+	if req.Title == nil && req.Description == nil && req.Duration == nil && req.Artists == nil && req.Genres == nil {
 		return c.JSON(http.StatusBadRequest, helpers.ErrorResponse("No fields to update"))
 	}
 
-	modelMovie := models.Movie{
-		Title:       req.Title,
-		Description: req.Description,
-		Duration:    req.Duration,
-		Artists:     req.Artists,
-		Genres:      req.Genres,
+	updateData := make(map[string]interface{})
+
+	if req.Title != nil {
+		updateData["title"] = *req.Title
+	}
+	if req.Description != nil {
+		updateData["description"] = *req.Description
+	}
+	if req.Duration != nil {
+		updateData["duration"] = *req.Duration
+	}
+	if req.Artists != nil {
+		updateData["artists"] = *req.Artists
+	}
+	if req.Genres != nil {
+		updateData["genres"] = *req.Genres
 	}
 
-	updatedMovie, err := mc.s.UpdateMovie(id, modelMovie)
+	updatedMovie, err := mc.s.UpdateMovie(id, updateData)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, helpers.ErrorResponse("Failed to update movie"))
 	}
